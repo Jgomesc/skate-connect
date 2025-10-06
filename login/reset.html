@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Redefinir senha</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#fff7f7;display:flex;align-items:center;justify-content:center;height:100vh}
+    .card{width:360px;background:#fff;padding:20px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+    input{width:100%;padding:10px;margin:8px 0;border-radius:4px;border:1px solid #ccc}
+    button{width:100%;padding:10px;background:#b00303;color:#fff;border:none;border-radius:4px}
+    .info{font-size:0.9rem;color:#333}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h3>Redefinir senha</h3>
+    <p class="info">Insira o código recebido e a nova senha.</p>
+    <input id="token" type="text" placeholder="Código" />
+    <input id="password" type="password" placeholder="Nova senha" />
+    <input id="confirm" type="password" placeholder="Confirmar nova senha" />
+    <div id="msg" style="color:#b00303;margin-bottom:8px"></div>
+    <button id="reset">Redefinir senha</button>
+    <p style="margin-top:10px;font-size:0.9rem">Voltar ao <a href="login.html">login</a></p>
+  </div>
+  <script src="reset.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Esqueci minha senha</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#f5f5f5;display:flex;align-items:center;justify-content:center;height:100vh}
+    .card{width:360px;background:#fff;padding:20px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+    input{width:100%;padding:10px;margin:8px 0;border-radius:4px;border:1px solid #ccc}
+    button{width:100%;padding:10px;background:#0077cc;color:#fff;border:none;border-radius:4px}
+    .info{font-size:0.9rem;color:#333}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h3>Recuperar senha</h3>
+    <p class="info">Digite seu e-mail cadastrado. Um código de redefinição será gerado (simulado) e exibido para que você possa redefinir a senha.</p>
+    <input id="email" type="email" placeholder="Seu e-mail" required />
+    <div id="msg" style="color:#b00303;margin-bottom:8px"></div>
+    <button id="send">Gerar código</button>
+    <p style="margin-top:10px;font-size:0.9rem">Já tem conta? <a href="login.html">Entrar</a></p>
+  </div>
+  <script src="forgot.js"></script>
+</body>
+</html>

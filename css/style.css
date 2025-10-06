@@ -67,3 +67,13 @@ section.sobre{
     width: 40px;
     margin: 10px 0px;
 }
+/* Toast notifications */
+#toastContainer{ position:fixed; right:20px; bottom:20px; z-index:9999; display:flex; flex-direction:column; gap:8px }
+.toast{ min-width:200px; max-width:320px; padding:10px 14px; border-radius:6px; color:#fff; background:#333; box-shadow:0 6px 18px rgba(0,0,0,0.12); opacity:0; transform:translateY(8px); transition:all 240ms ease }
+.toast.visible{ opacity:1; transform:translateY(0) }
+.toast.info{ background:#2b7cff }
+.toast.success{ background:#2fb75f }
+.toast.error{ background:#e04b4b }
+
+/* avatar pequeno no header */
+.avatar-mini{ width:32px; height:32px; border-radius:50%; object-fit:cover; vertical-align:middle; margin-right:8px; border:2px solid #fff }

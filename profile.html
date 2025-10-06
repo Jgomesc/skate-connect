@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Perfil</title>
+  <link href="css/style.css" rel="stylesheet">
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;background:#b00303;display:flex;justify-content:center;align-items:center;height:100vh}
+    .profile{width:360px;background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+    .avatar {width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid #ddd}
+    .file-input{margin:8px 0}
+  </style>
+</head>
+<body>
+  <div class="center">
+    <div class="profile">
+      <h2>Perfil do Usuário</h2>
+      <div id="profileInfo">Carregando...</div>
+      <div style="margin-top:12px">
+        <label for="avatarFile">Alterar foto de perfil</label>
+        <input id="avatarFile" class="file-input" type="file" accept="image/*">
+      </div>
+      <p style="margin-top:10px"><a href="index.html">Voltar</a></p>
+    </div>
+  </div>
+  <script src="js/utils.js"></script>
+  <script>
+    (function(){
+      function getSession(){ try{ const raw=localStorage.getItem('sc_session'); return raw?JSON.parse(raw):null }catch(e){return null} }
+      function getUsers(){ try{ const raw=localStorage.getItem('sc_users'); return raw?JSON.parse(raw):[] }catch(e){return[]} }
+      function saveUsers(u){ localStorage.setItem('sc_users', JSON.stringify(u)); }
+
+      const s = getSession();
+      const info = document.getElementById('profileInfo');
+      const file = document.getElementById('avatarFile');
+      if(!s){ info.innerHTML = 'Você não está autenticado. <a href="login/login.html">Entrar</a>'; return; }
+
+      function renderProfile(){
+        const users = getUsers();
+        const user = users.find(u=>u.username === s.username || (u.email && u.email.toLowerCase()=== (s.email||'').toLowerCase()));
+        const avatarHtml = user && user.avatar ? '<img src="' + user.avatar + '" class="avatar" alt="avatar">' : '<img src="assets/logo.png" class="avatar" alt="avatar">';
+  const logged = s.loggedAtLocal ? s.loggedAtLocal : (s.loggedAt || '');
+  info.innerHTML = '<div style="display:flex;gap:12px;align-items:center">' + avatarHtml + '<div><p>Usuário: <strong>' + (s.username || '') + '</strong></p><p>E-mail: <strong>' + (s.email || '') + '</strong></p></div></div><p style="margin-top:8px">Logado em: ' + logged + '</p><p><a href="#" id="logout">Sair</a></p>';
+        document.getElementById('logout').addEventListener('click', function(e){ e.preventDefault(); localStorage.removeItem('sc_session'); window.location.href = 'index.html'; });
+      }
+
+      renderProfile();
+
+      // upload handler: converte para dataURL e salva no usuário e na sessão
+      file.addEventListener('change', function(){
+        const f = file.files && file.files[0];
+        if(!f) return;
+        const reader = new FileReader();
+        reader.onload = function(e){
+          const dataURL = e.target.result;
+          // salvar no usuário
+          const users = getUsers();
+          const idx = users.findIndex(u=>u.username === s.username || (u.email && u.email.toLowerCase()=== (s.email||'').toLowerCase()));
+          if(idx !== -1){ users[idx].avatar = dataURL; saveUsers(users); }
+          // atualizar sessão
+          const newSession = Object.assign({}, s, { avatar: dataURL });
+          localStorage.setItem('sc_session', JSON.stringify(newSession));
+          renderProfile();
+        };
+        reader.readAsDataURL(f);
+      });
+
+    })();
+  </script>
+</body>
+</html>

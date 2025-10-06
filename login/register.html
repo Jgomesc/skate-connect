@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Skate Connect</title>
+    <link href="css/style.css" rel="stylesheet"/>
+    <style>
+        /* Estilo baseado em login/login.html */
+        body {
+            font-family: Arial, sans-serif;
+            background: #b00303;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .register-container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 360px;
+        }
+        .register-container h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .register-container input[type="text"],
+        .register-container input[type="email"],
+        .register-container input[type="password"] {
+            width: 100%;
+            padding: 0.6rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .register-container button {
+            width: 100%;
+            padding: 0.6rem;
+            background:#b00303ff;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .register-container button:hover { background: #900202; }
+        .field-info { font-size: 0.85rem; color: #555; margin-bottom: 0.6rem; }
+        .error { color: #b00303; font-size: 0.85rem; margin-bottom: 0.6rem; }
+        .flex-row { display:flex; gap:8px; align-items:center; }
+        .password-toggle { font-size:0.85rem; cursor:pointer; color:#555; }
+        .strength { height:6px; border-radius:4px; background:#eee; margin-top:6px; }
+        .strength > i { display:block; height:100%; border-radius:4px; width:0%; background:linear-gradient(90deg,#ff4d4d,#ffd24d,#63d471); }
+        small.valid { color: green; }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Cadastro</h2>
+
+        <form id="registerForm" novalidate>
+            <input type="text" id="fullname" placeholder="Nome completo" required>
+            <input type="text" id="username" placeholder="Nome de usuário" required>
+            <div id="usernameInfo" class="field-info"></div>
+
+            <input type="email" id="email" placeholder="E-mail" required>
+            <div id="emailInfo" class="field-info"></div>
+
+            <input type="password" id="password" placeholder="Senha" required>
+            <div class="flex-row">
+                <span class="password-toggle" id="togglePassword">Mostrar</span>
+                <div style="flex:1"></div>
+            </div>
+            <div class="strength"><i id="strengthBar"></i></div>
+
+            <input type="password" id="confirmPassword" placeholder="Confirme a senha" required>
+            <div id="passwordInfo" class="field-info"></div>
+
+            <label style="display:block; margin:10px 0;"><input type="checkbox" id="terms"> Aceito os termos</label>
+
+            <div id="formError" class="error" role="alert" aria-live="polite"></div>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <p style="text-align:center; margin-top:10px;">Já tem conta? <a href="login.html">Entrar</a></p>
+
+        <script src="register.js"></script>
+    </div>
+</body>
+</html>

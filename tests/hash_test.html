@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hash Test</title>
+  <script src="../js/utils.js"></script>
+</head>
+<body>
+  <h3>Teste de hash (SHA-256)</h3>
+  <input id="pw" type="text" placeholder="Senha" />
+  <button id="go">Gerar</button>
+  <pre id="out"></pre>
+  <script>
+    document.getElementById('go').addEventListener('click', async function(){
+      const v = document.getElementById('pw').value;
+      const h = await window.utils.hashPassword(v);
+      document.getElementById('out').textContent = h;
+    });
+  </script>
+</body>
+</html>

@@ -17,11 +17,15 @@
 
             
             <div class="menu">
-                <a href="#">LOGIN</a>
+                <a href="login/login.html">LOGIN</a>
                 <a href="#">HOME</a>
                 <a href="#">NEWS</a>
                 <a href="#">LEARN</a>
+                <a href="#" id="profileBtn">PERFIL</a>
             </div> <!--menu-->
+            <div class="menu-session" style="padding-top:20px; text-align:right; width:100%">
+                <span id="sessionArea"></span>
+            </div>
 
                
             </div>
@@ -39,5 +43,33 @@
                 </div>
            </div> <!--extras-->
         </section>
+        <script src="js/ui.js"></script>
+        <script>
+            (function(){
+                function getSession(){
+                    try{ const raw = localStorage.getItem('sc_session'); return raw? JSON.parse(raw): null; }catch(e){ return null; }
+                }
+                function render(){
+                    const area = document.getElementById('sessionArea');
+                    if(!area) return;
+                    const s = getSession();
+                    if(s && s.username){
+                        const avatar = s.avatar ? ('<img src="' + s.avatar + '" class="avatar-mini" alt="avatar">') : '';
+                        area.innerHTML = avatar + 'Olá, <strong>' + (s.username) + '</strong> — <a href="#" id="logoutBtn">Sair</a>';
+                        document.getElementById('logoutBtn').addEventListener('click', function(e){ e.preventDefault(); localStorage.removeItem('sc_session'); render(); });
+                    } else if(s && s.email){
+                        const avatar = s.avatar ? ('<img src="' + s.avatar + '" class="avatar-mini" alt="avatar">') : '';
+                        area.innerHTML = avatar + 'Olá, <strong>' + (s.email) + '</strong> — <a href="#" id="logoutBtn">Sair</a>';
+                        document.getElementById('logoutBtn').addEventListener('click', function(e){ e.preventDefault(); localStorage.removeItem('sc_session'); render(); });
+                    } else {
+                        area.innerHTML = '<a href="login/login.html">Entrar</a> ou <a href="login/register.html">Cadastrar</a>';
+                    }
+                }
+                render();
+                // handler do botão de perfil
+                const profileBtn = document.getElementById('profileBtn');
+                if(profileBtn){ profileBtn.addEventListener('click', function(e){ e.preventDefault(); const s = getSession(); if(s) { window.location.href = 'profile.html'; } else { ui.show('Você precisa entrar para acessar o perfil', 'info'); setTimeout(()=> window.location.href = 'login/login.html', 900); } }); }
+            })();
+        </script>
     </body>
 </html>
