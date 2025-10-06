@@ -2,72 +2,80 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Inter', Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .center{
     display: flex;
     flex-wrap: wrap;
-    max-width: 1280px;
+    width:100%;
+    max-width: none;
     margin:0 auto;
     padding: 0 2%;
 }
 
 html,body{
-    height: 100%;
-    overflow-y: hidden;
+    min-height: 100%;
+    overflow-y: auto;
     overflow-x: hidden;
+    background:#f7f7f7;
 }
 
-header{
-    height: 200px;
-    padding: 20px 0;
+.header{ background: linear-gradient(90deg,#b00303 0%, #a00000 100%); color: #fff; padding: 16px 0; position: static; z-index: 50; }
+.header-inner{ display:flex; align-items:center; justify-content:space-between; width:100%; max-width:none; margin:0 auto; padding:0 2% }
+.logo img{ height:64px; transition:height 180ms ease }
+.menu{ display:flex; gap:22px; align-items:center }
+.menu a{ color:#fff; text-decoration:none; font-weight:600; display:inline-block; transform-origin:center; transition:transform 160ms ease, opacity 160ms ease }
+.menu a:hover{ transform:scale(1.06); opacity:0.95 }
+.menu a.button{ background:#fff; color:#b00303; padding:8px 12px; border-radius:6px }
+
+/* CTA hover leve */
+.cta{ transition: transform 160ms ease, box-shadow 160ms ease }
+.cta:hover{ transform:scale(1.03); box-shadow:0 10px 30px rgba(176,3,3,0.12) }
+
+/* garantir links brancos no header (inclui sessionArea) */
+header a{ color:#fff; text-decoration:none }
+#sessionArea a{ color:#fff; font-weight:600 }
+
+/* hero */
+main.hero{ min-height:calc(100vh - 72px); display:flex; align-items:center; }
+.hero-inner{ width:100%; max-width:none; margin:0 auto; padding:44px 3%; display:flex; gap:48px; align-items:center }
+.hero-left{ flex:1 }
+.hero-right{ flex:1; display:flex; justify-content:center }
+.hero h1{ font-size:2.1rem; color:#111; margin-bottom:16px; line-height:1.15 }
+.hero p{ color:#333; margin-bottom:20px; line-height:1.55 }
+.card{ background:#fff; padding:18px; border-radius:10px; box-shadow:0 8px 24px rgba(11,11,11,0.06) }
+.card{ background:#fff; padding:20px; border-radius:10px; box-shadow:0 8px 24px rgba(11,11,11,0.06); transition:transform 200ms ease, box-shadow 200ms ease }
+.card:hover{ transform:translateY(-6px) scale(1.02); box-shadow:0 18px 40px rgba(11,11,11,0.12) }
+.cta{ display:inline-block; background:#b00303; color:#fff; padding:12px 18px; border-radius:8px; text-decoration:none }
+
+/* aplicar efeito de aumento sutil a todos os botões */
+button, input[type="button"], input[type="submit"], .cta, .menu a.button{
+    display:inline-block;
+    transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+}
+button:hover, input[type="button"]:hover, input[type="submit"]:hover, .cta:hover, .menu a.button:hover{
+    transform: scale(1.04);
+    opacity: 0.98;
 }
 
-.logo{
-    width: 50%;
+/* aplicar também a links que funcionam como botões em cards/itens/aulas e ícones sociais */
+a.cta, .card a, .item a, .lesson a, .hero-right .card a, .social-media a{
+    transition: transform 160ms ease, opacity 160ms ease;
+    display:inline-block;
+}
+a.cta:hover, .card a:hover, .item a:hover, .lesson a:hover, .hero-right .card a:hover, .social-media a:hover{
+    transform: scale(1.04);
+    opacity: 0.98;
 }
 
-.menu{
-    padding-top: 20px;
-    width: 50%;
-    text-align: right;
-}
-
-.menu a{
-    color:#b00303;
-    text-decoration: none;
-    font-weight: bold;  
-    margin-right:15px; 
-}
-
-section.sobre{
-    height: calc(100% - 200px);
-    position: relative;
-}
-
-.extras{
-    position: absolute;
-    bottom: -290px;
-    right: -260px;
-    width: 800px;
-    height: 800px;
-    border-radius: 50%;
-    background-color: #b00303;
-}
-
-.social-media{
-    position: absolute;
-    right: 295;
-    top: 170;
-}
-
-.social-media img{
-    display: block;
-    width: 40px;
-    margin: 10px 0px;
-}
-/* Toast notifications */
+.extras{ display:none }
+.social-media img{ width:36px; transition: transform 160ms ease }
+.social-media img:hover{ transform:scale(1.12) }
+/* aplicar leve zoom também à imagem principal do card */
+.hero-right .card img{ transition: transform 160ms ease }
+.hero-right .card img:hover{ transform: scale(1.03) }
+#toastContainer{ position:fixed; right:20px; bottom:20px; z-index:9999; display:flex; flex-direction:column; gap:8px }
 #toastContainer{ position:fixed; right:20px; bottom:20px; z-index:9999; display:flex; flex-direction:column; gap:8px }
 .toast{ min-width:200px; max-width:320px; padding:10px 14px; border-radius:6px; color:#fff; background:#333; box-shadow:0 6px 18px rgba(0,0,0,0.12); opacity:0; transform:translateY(8px); transition:all 240ms ease }
 .toast.visible{ opacity:1; transform:translateY(0) }
@@ -76,4 +84,14 @@ section.sobre{
 .toast.error{ background:#e04b4b }
 
 /* avatar pequeno no header */
-.avatar-mini{ width:32px; height:32px; border-radius:50%; object-fit:cover; vertical-align:middle; margin-right:8px; border:2px solid #fff }
+.avatar-mini{ width:36px; height:36px; border-radius:50%; object-fit:cover; vertical-align:middle; margin-right:8px; border:2px solid #fff }
+
+/* layout responsivo */
+@media (max-width:800px){
+    .hero-inner{ flex-direction:column; gap:18px }
+    .menu{ gap:12px }
+    .header-inner{ padding: 0 12px }
+    .logo img{ height:48px }
+    .hero-left{ text-align:center }
+    .hero-right{ justify-content:center }
+}

@@ -6,43 +6,56 @@
     </head>
     
     <body>
-        <header>
-        
-           <div class="center"> <!--center-->
-            
-           
-            <div class="logo"> <img src="assets/logo.png"> 
-            
-            </div>  <!--logo--> 
+                <header class="header">
+                    <div class="header-inner">
+                        <div class="logo"><a href="index.html"><img src="assets/avatar.svg" alt="logo"></a></div>
+            <nav class="menu">
+                <a href="login/login.html" id="loginLink">Entrar</a>
+                <a href="index.html" id="homeLink">Home</a>
+                <a href="news.html">Notícias</a>
+                <a href="lessons.html">Aprender</a>
+                <a href="#" id="profileBtn">Perfil</a>
+            </nav>
+                        <div style="display:flex;align-items:center;gap:12px">
+                            <div id="sessionArea"></div>
+                        </div>
+                    </div>
+                </header>
 
-            
-            <div class="menu">
-                <a href="login/login.html">LOGIN</a>
-                <a href="#">HOME</a>
-                <a href="#">NEWS</a>
-                <a href="#">LEARN</a>
-                <a href="#" id="profileBtn">PERFIL</a>
-            </div> <!--menu-->
-            <div class="menu-session" style="padding-top:20px; text-align:right; width:100%">
-                <span id="sessionArea"></span>
-            </div>
+                <main class="hero">
+                    <div class="hero-inner">
+                        <div class="hero-left">
+                            <h1>Conecte-se com a cena do skate</h1>
+                            <p>Encontre vagas, eventos, e uma comunidade que compartilha suas manobras e histórias. Cadastre-se e participe.</p>
+                            <a class="cta" href="login/register.html">Cadastre-se grátis</a>
+                        </div>
+                        <div class="hero-right">
+                            <div class="card">
+                                            <img src="assets/avatar.svg" alt="logo" style="width:280px; display:block;">
+                                <div style="margin-top:10px; text-align:center">
+                                      <a href="https://www.instagram.com/im_gomees/"><img src="assets/instagram.svg" style="width:32px;margin:0 6px"></a>
+                                      <a href="#"><img src="assets/facebook.svg" style="width:32px;margin:0 6px"></a>
+                                      <a href="#"><img src="assets/x.svg" style="width:32px;margin:0 6px"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                        <section style="padding:40px 4%; background:#fff; border-top:1px solid #eee">
+                            <div style="max-width:1200px; margin:0 auto;">
+                                <h2>Notícias</h2>
+                                <p>Fique por dentro das últimas novidades do mundo do skate: eventos, lançamentos de equipamentos e coberturas de campeonatos.</p>
+                                <a class="cta" href="news.html">Ver todas as notícias</a>
+                            </div>
+                        </section>
 
-               
-            </div>
-        </header>
-
-        <section class="sobre">
-
-           <div class="extras">
-                <img src="assets/skater.png">
-                <div class="social-media">
-                    <a href="https://www.instagram.com/im_gomees/"><img src="assets/instagram.png"></a>
-                    <a href="#"><img src="assets/facebook.png"></a>
-                    <a href="#"><img src="assets/twitter.png"></a>
-
-                </div>
-           </div> <!--extras-->
-        </section>
+                        <section style="padding:40px 4%; background:#f9f9fb; border-top:1px solid #eee">
+                            <div style="max-width:1200px; margin:0 auto;">
+                                <h2>Videoaulas</h2>
+                                <p>Aprenda novas manobras com videoaulas passo a passo, desde o iniciante até o nível avançado.</p>
+                                <a class="cta" href="lessons.html">Assistir aulas</a>
+                            </div>
+                        </section>
         <script src="js/ui.js"></script>
         <script>
             (function(){
@@ -51,17 +64,17 @@
                 }
                 function render(){
                     const area = document.getElementById('sessionArea');
+                    const loginLink = document.getElementById('loginLink');
                     if(!area) return;
                     const s = getSession();
-                    if(s && s.username){
+                    if(s && (s.username || s.email)){
+                        if(loginLink) loginLink.style.display = 'none';
+                        const displayName = s.username ? s.username : s.email;
                         const avatar = s.avatar ? ('<img src="' + s.avatar + '" class="avatar-mini" alt="avatar">') : '';
-                        area.innerHTML = avatar + 'Olá, <strong>' + (s.username) + '</strong> — <a href="#" id="logoutBtn">Sair</a>';
-                        document.getElementById('logoutBtn').addEventListener('click', function(e){ e.preventDefault(); localStorage.removeItem('sc_session'); render(); });
-                    } else if(s && s.email){
-                        const avatar = s.avatar ? ('<img src="' + s.avatar + '" class="avatar-mini" alt="avatar">') : '';
-                        area.innerHTML = avatar + 'Olá, <strong>' + (s.email) + '</strong> — <a href="#" id="logoutBtn">Sair</a>';
-                        document.getElementById('logoutBtn').addEventListener('click', function(e){ e.preventDefault(); localStorage.removeItem('sc_session'); render(); });
+                        area.innerHTML = avatar + 'Olá, <strong>' + (displayName) + '</strong> — <a href="#" id="logoutBtn">Sair</a>';
+                        document.getElementById('logoutBtn').addEventListener('click', function(e){ e.preventDefault(); localStorage.removeItem('sc_session'); if(loginLink) loginLink.style.display = ''; render(); });
                     } else {
+                        if(loginLink) loginLink.style.display = '';
                         area.innerHTML = '<a href="login/login.html">Entrar</a> ou <a href="login/register.html">Cadastrar</a>';
                     }
                 }
@@ -69,6 +82,12 @@
                 // handler do botão de perfil
                 const profileBtn = document.getElementById('profileBtn');
                 if(profileBtn){ profileBtn.addEventListener('click', function(e){ e.preventDefault(); const s = getSession(); if(s) { window.location.href = 'profile.html'; } else { ui.show('Você precisa entrar para acessar o perfil', 'info'); setTimeout(()=> window.location.href = 'login/login.html', 900); } }); }
+                                // esconder link Home se estivermos na index.html
+                                const homeLink = document.getElementById('homeLink');
+                                try{
+                                    const loc = window.location.pathname.replace(/\\/g,'/').split('/').pop();
+                                    if(loc === '' || loc === 'index.html'){ if(homeLink) homeLink.style.display = 'none'; }
+                                }catch(e){}
             })();
         </script>
     </body>

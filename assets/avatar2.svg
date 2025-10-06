@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <radialGradient id="g2" cx="50%" cy="30%">
+      <stop offset="0%" stop-color="#ffd24d"/>
+      <stop offset="60%" stop-color="#ff6b6b"/>
+      <stop offset="100%" stop-color="#6b3bff"/>
+    </radialGradient>
+  </defs>
+  <rect width="160" height="160" rx="28" fill="url(#g2)" />
+  <!-- círculo interno -->
+  <circle cx="80" cy="74" r="44" fill="#111" opacity="0.08" />
+  <!-- skate estilizado -->
+  <g transform="translate(10,28) scale(0.8)" fill="#fff">
+    <path d="M74 18c-6 0-11 5-11 11s5 11 11 11 11-5 11-11-5-11-11-11z" />
+    <path d="M24 80c6-10 18-18 36-18h40c18 0 30 8 36 18 1 2 0 4-2 5-10 6-24 14-40 14H64c-16 0-30-8-40-14-2-1-3-3-2-5z" opacity="0.98"/>
+  </g>
+  <!-- detalhe shape -->
+  <rect x="26" y="110" width="108" height="8" rx="4" fill="#222" opacity="0.9" />
+  <circle cx="48" cy="126" r="6" fill="#222"/>
+  <circle cx="112" cy="126" r="6" fill="#222"/>
+  <!-- iniciais estilizadas -->
+  <text x="80" y="150" text-anchor="middle" font-family="Verdana,Arial" font-size="12" fill="#fff" opacity="0.9">SKATE CONNECT</text>
+</svg>
