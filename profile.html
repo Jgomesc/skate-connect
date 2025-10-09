@@ -41,7 +41,7 @@
       function renderProfile(){
         const users = getUsers();
         const user = users.find(u=>u.username === s.username || (u.email && u.email.toLowerCase()=== (s.email||'').toLowerCase()));
-      const avatarHtml = user && user.avatar ? '<img src="' + user.avatar + '" class="avatar" alt="avatar">' : '<img src="assets/avatar.svg" class="avatar" alt="avatar">';
+  const avatarHtml = user && user.avatar ? '<img src="' + user.avatar + '" class="avatar" alt="avatar">' : '<img src="assets/Skatinho.svg" class="avatar" alt="avatar">';
       const logged = s.loggedAtLocal ? s.loggedAtLocal : (s.loggedAt || '');
       info.innerHTML = '<div>' + avatarHtml + '<p style="margin-top:10px"><strong>' + (s.username || '') + '</strong></p><p>' + (s.email || '') + '</p><p style="margin-top:8px">Logado em: ' + logged + '</p><p style="margin-top:10px"><a href="#" id="logout">Sair</a></p></div>';
         document.getElementById('logout').addEventListener('click', function(e){ e.preventDefault(); localStorage.removeItem('sc_session'); window.location.href = 'index.html'; });
