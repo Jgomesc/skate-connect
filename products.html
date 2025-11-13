@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Produtos - Skate Connect</title>
+  <link href="css/style.css" rel="stylesheet">
+  <style>
+    .container {
+      max-width: 1080px;
+      margin: 40px auto;
+      padding: 0 2%;
+    }
+    .product {
+      background: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .product img {
+      width: 120px;
+      height: auto;
+      border-radius: 6px;
+    }
+    .product-info h3 {
+      margin: 0 0 8px;
+    }
+    .product-info p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo"><a href="index.html"><img src="assets/Skatinho.svg" alt="logo"></a></div>
+      <nav class="menu">
+        <a href="login/login.html" id="loginLink">Entrar</a>
+        <a href="index.html" id="homeLink">Home</a>
+        <a href="news.html">Notícias</a>
+        <a href="lessons.html">Videoaulas</a>
+        <a href="#" id="profileBtn">Perfil</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div id="sessionArea"></div>
+      </div>
+    </div>
+  </header>
+
+  <script src="js/ui.js"></script>
+  <script>
+    // mesmo script de sessão já usado nas outras páginas
+    (function(){
+      function getSession(){ try{ const raw=localStorage.getItem('sc_session'); return raw? JSON.parse(raw): null; }catch(e){return null} }
+      function render(){ const area = document.getElementById('sessionArea'); if(!area) return; const s = getSession(); const loginLink = document.getElementById('loginLink'); if(s && (s.username || s.email)){ if(loginLink) loginLink.style.display='none'; const displayName = s.username? s.username : s.email; const avatar = s.avatar? ('<img src="'+s.avatar+'" class="avatar-mini">') : ''; area.innerHTML = avatar + 'Olá, <strong>'+displayName+'</strong> — <a href="#" id="logoutBtn">Sair</a>'; document.getElementById('logoutBtn').addEventListener('click', function(e){ e.preventDefault(); localStorage.removeItem('sc_session'); render(); }); } else { if(loginLink) loginLink.style.display=''; area.innerHTML = '<a href="login/login.html">Entrar</a> ou <a href="login/register.html">Cadastrar</a>'; } }
+      render();
+      const profileBtn = document.getElementById('profileBtn'); if(profileBtn){ profileBtn.addEventListener('click', function(e){ e.preventDefault(); const s=getSession(); if(s) window.location.href='profile.html'; else { ui.show('Você precisa entrar para acessar o perfil','info'); setTimeout(()=> window.location.href='login/login.html',900); } }); }
+      try{ const homeLink = document.getElementById('homeLink'); const loc = window.location.pathname.replace(/\\/g,'/').split('/').pop(); if(loc === '' || loc === 'index.html'){ if(homeLink) homeLink.style.display='none'; } }catch(e){}
+    })();
+  </script>
+
+  <main class="container">
+
+    <h1>Produtos</h1>
+
+    <div class="product">
+      <img src="assets/skiniciante.svg" alt="Skate iniciante">
+      <div class="product-info">
+        <h3>Skate Street - iniciante</h3>
+        <p>Shape resistente, trucks leves e rodas ideais para quem está começando.</p>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="assets/skate2.jpg" alt="Skate intermediário">
+      <div class="product-info">
+        <h3>Skate Profissional - intermediário</h3>
+        <p>Equipamento de alta performance para manobras em pistas e corrimões.</p>
+      </div>
+    </div>
+
+    <div class="product">
+      <img src="assets/skate3.jpg" alt="Skate avançado">
+      <div class="product-info">
+        <h3>Skate Custom - avançado</h3>
+        <p>Shape personalizado, rodas de alta dureza e rolamentos premium.</p>
+      </div>
+    </div>
+
+
+   <section>
+    <div class="product">
+        <img src="assets/skate2.jpg" alt="Outfit's">
+        <div class="product-info">
+          <h3>Camiseta SANTA CRUZ - BLACK & BLUE</h3>
+          <p>Camiseta Santa Cruz.</p>
+          <p>LINK: skatedossonhos.com</p>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="assets/skate2.jpg" alt="Outfit's">
+        <div class="product-info">
+          <h3>Calça CARGO FIRE - BLACK</h3>
+          <p>Calça Cargo Fire.</p>
+          <p>LINK: fire.com</p>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="assets/skate2.jpg" alt="Outfit's">
+        <div class="product-info">
+          <h3>Tenis NIKE SB - WHITE</h3>
+          <p>Tenis Skate Nike SB.</p>
+          <p>LINK: nike.com</p>
+        </div>
+      </div>
+    </section>   
+  </main>
+</body>
+</html>
